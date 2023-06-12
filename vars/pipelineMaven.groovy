@@ -13,6 +13,7 @@ def call (Map config = [:]) {
         stage ('Test app') {
                 sh 'mvn verify'
                 junit 'target/surefire-reports/*.xml'
+        }
 
         //     post {
         //         always{
