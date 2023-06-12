@@ -4,7 +4,7 @@ def call (Map config = [:]) {
 
     node{
         stage ('Download source code'){
-            checkout ([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs:[[url: "https://github.com/apudzianowski/spring-petclinic"]]])
+            checkout ([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs:[[url: "https://github.com/apudzianowski/spring-petclinic"]]])
         }
         stage ('Building source code'){
                 sh 'mvn -B -DskipTests clean package'
