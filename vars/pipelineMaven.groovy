@@ -21,4 +21,5 @@ def call (Map config = [:]) {
         stage ('Installing Artifacts') {
             sh 'mvn install -DskipTests'
         }
+    }
 }
