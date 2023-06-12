@@ -8,15 +8,16 @@ def call (Map config = [:]) {
             checkout scm
         }
         stage ('Building source code'){
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -B -DskipTests '
             }
         stage ('Test app') {
                 sh 'mvn verify'
-            post {
-                always{
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
+                junit 'target/surefire-reports/*.xml'
+            // post {
+            //     always{
+            //         junit 'target/surefire-reports/*.xml'
+            //     }
+            // }
         }
         stage ('Installing Artifacts') {
             sh 'mvn install -DskipTests'
