@@ -31,7 +31,7 @@ def call (Map config = [:]) {
         stage ('Clean The Mess') {
         // Clean after build
             always {
-                cleanWs(cleanWhenSuccess:true)
+                cleanWs()
         }
     }
         }
