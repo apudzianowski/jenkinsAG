@@ -8,10 +8,12 @@ def call (Map config = [:]) {
     node{
         stage ('Download source code'){
             // checkout ([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs:[[url: "https://github.com/apudzianowski/spring-petclinic"]]])
+            echo '\033[34mDownloading\033[0m \033[34msource\033[0m \033[34mcode!\033[0m'
             checkout scm
         }
         stage ('Building source code'){
-                sh 'mvn -B -DskipTests clean package'
+            echo '\033[33mBuilding\033[0m \033[33msource\033[0m \033[33mcode!\033[0m'
+            sh 'mvn -B -DskipTests clean package'
             }
         stage ('Test app') {
             if (!skipTest){
