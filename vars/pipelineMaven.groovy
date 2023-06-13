@@ -28,7 +28,7 @@ def call (Map config = [:]) {
             sh 'mvn install -DskipTests'
             }
         
-        post {
+        stage ('Clean The Mess') {
         // Clean after build
             always {
                 cleanWs(cleanWhenSuccess:true)
