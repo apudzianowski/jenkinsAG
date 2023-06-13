@@ -6,6 +6,7 @@ def call (Map config = [:]) {
     def skipInstall = config.get('skipInstall', false)
 
     node{
+        wrap([$class: 'TimestamperBuildWrapper']) {
         stage ('Download source code'){
             // checkout ([$class: 'GitSCM', branches: [[name: 'main']], userRemoteConfigs:[[url: "https://github.com/apudzianowski/spring-petclinic"]]])
             echo '\033[34mDownloading\033[0m \033[34msource\033[0m \033[34mcode!\033[0m'
@@ -27,5 +28,6 @@ def call (Map config = [:]) {
             sh 'mvn install -DskipTests'
             }
         }
+    }
     }
 } 
