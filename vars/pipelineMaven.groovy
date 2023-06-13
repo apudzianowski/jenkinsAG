@@ -11,7 +11,7 @@ def call (Map config = [testInstall : 1, testApp : 1]) {
                 sh 'mvn -B -DskipTests clean package'
             }
         stage ('Test app') {
-            if (testApp==0){
+            if ($defaultMap.testApp==0){
                 sh 'mvn verify'
                 junit 'target/surefire-reports/*.xml'
             }
@@ -24,7 +24,7 @@ def call (Map config = [testInstall : 1, testApp : 1]) {
         //     }
         // }
         stage ('Installing Artifacts') {
-            if (testInstall==0){
+            if ($defaultMap.testInstall==0){
             sh 'mvn install -DskipTests'
             }
         }
