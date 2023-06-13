@@ -27,6 +27,13 @@ def call (Map config = [:]) {
             if (!skipInstall){
             sh 'mvn install -DskipTests'
             }
+        
+        post {
+        // Clean after build
+            always {
+                cleanWs(cleanWhenSuccess:true)
+        }
+    }
         }
     }
     }
