@@ -1,6 +1,9 @@
-def call (Map config = [testInstall : 1, testApp : 1]) {
+def call (Map config = [:]) {
     defaultMap = [moduleName: 'works', enviroment: 'bar', repoName: 'jenkinsAG']
     config = defaultMap << config
+
+    def skipTest = config.get('skipTest', false)
+    def skipInstall = config.get('skipInstall', false)
 
     node{
         stage ('Download source code'){
@@ -11,20 +14,14 @@ def call (Map config = [testInstall : 1, testApp : 1]) {
                 sh 'mvn -B -DskipTests clean package'
             }
         stage ('Test app') {
-            if ($defaultMap.testApp==0){
+            if (!skipTest){
                 sh 'mvn verify'
                 junit 'target/surefire-reports/*.xml'
             }
         }
 
-        //     post {
-        //         always{
-        //             junit 'target/surefire-reports/*.xml'
-        //         }
-        //     }
-        // }
         stage ('Installing Artifacts') {
-            if ($defaultMap.testInstall==0){
+            if (!skipInstall){
             sh 'mvn install -DskipTests'
             }
         }
